@@ -20,9 +20,17 @@ Route::get('/', function()
 
 Route::post('/', function()
 {
+    $search = Input::get('q');
+    
     //Returns a collection of the most recent Tweets by search terms or hash tags
-    $search = Input::get('q'); 
-    $tweets =Twitter::getSearch(array('q' => $search, 'count' => 5, 'result_type'=>'recent'));
+    $response = Twitter::getSearch(array('q' => $search, 'count' => 2, 'result_type'=>'recent'));
+
+    //Get array with custom tweet attributes
+    $receivedTweets = Tweet::processResponse($response);
+       
+    //add sentimental status to tweets
+    $tweets = Helpers::addUnirestSentimentalStatus($receivedTweets);
+    
     return View::make('searchtweets', array('tweets' => $tweets, 'q' => $search));
 });
 

@@ -1,0 +1,14 @@
+/bootstrap/compiled.php
+/vendor
+composer.phar
+composer.lock
+.env.*.php
+.env.php
+.DS_Store
+Thumbs.db
+
+/nbproject
+
+
+.vagrant
+/app/config/packages/thujohn/twitter/config.php

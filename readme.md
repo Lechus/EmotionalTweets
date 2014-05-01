@@ -7,9 +7,18 @@ Emotional tweets
 
  Twitter search REST API
 
+ Sentimental API determine if the tweet is Happy / Sad / Indifferent
+
  Vagrant (optional)
 
  Composer
+
+
+What you need:
+----
+Twitter API key: https://dev.twitter.com
+Mashape API key: https://www.mashape.com
+
 
 ###Twitter account
 Once you run the command 
@@ -17,6 +26,10 @@ Once you run the command
 `app/config/packages/thujohn/twitter/config.php` with the correct API information.
 
 
+###Mashape 
+You need to modify `app/config/packages/mashape/unirest-php/config.php` with the correct API information.
+
+
 TODO:
 ----
-Sentimental API determine if the tweet is Happy / Sad / Indifferent
+Analyze user tweets and plot them on chart

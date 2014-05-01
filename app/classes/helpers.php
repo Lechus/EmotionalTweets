@@ -31,7 +31,7 @@ class Helpers
         if (!is_null($text)) {
             $response = Unirest::post(
                             "https://sentimentalsentimentanalysis.p.mashape.com/sentiment/current/classify_text/", array(
-                        "X-Mashape-Authorization" => "e7oGXoxuzve4vKrdYrq6y28Rx6GLIL5o"
+                        "X-Mashape-Authorization" => Config::get('packages/mashape/unirest-php/config.PRODUCTION_KEY')
                             ), array(
                         "lang" => $lang,
                         "text" => $text,

@@ -70,6 +70,7 @@ export DEBIAN_FRONTEND=noninteractive
 # Install MySQL quietly
 apt-get -q -y install mysql-server-5.5
 
+apt-get -q -y install mysqltuner
 # Git
 # ---
 apt-get install git-core

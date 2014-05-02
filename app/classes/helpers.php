@@ -12,11 +12,14 @@ class Helpers
     {
         $emotion = 'unknown';
         switch ($sent):
-            case -1: $emotion = 'Sad'; break;
-            case 0:  $emotion = 'Indifferent'; break;
-            case 1:  $emotion = 'Happy'; break;
+            case -1: $emotion = 'Sad';
+                break;
+            case 0: $emotion = 'Indifferent';
+                break;
+            case 1: $emotion = 'Happy';
+                break;
         endswitch;
-        
+
         return $emotion;
     }
 
@@ -28,13 +31,14 @@ class Helpers
      */
     public static function unirestSentimental($lang = 'en', $text = null)
     {
+
         if (!is_null($text)) {
             $response = Unirest::post(
                             "https://sentimentalsentimentanalysis.p.mashape.com/sentiment/current/classify_text/", array(
                         "X-Mashape-Authorization" => Config::get('packages/mashape/unirest-php/config.PRODUCTION_KEY')
                             ), array(
                         "lang" => $lang,
-                        "text" => $text,
+                        "text" => urlencode($text),
                         "exclude" => "",
                         "detectlang" => "0"
                             )
@@ -54,11 +58,14 @@ class Helpers
 
         if (!is_null($tweets)) {
             foreach ($tweets as $tweet) {
+                
                 $sentimental = self::unirestSentimental($tweet['lang'], $tweet['text']);
 
-                $tweet['value'] = $sentimental->body->value;
-                $tweet['emotion'] = self::emotions($sentimental->body->sent);
 
+                if ( !(isset($sentimental->body->error) && is_object($sentimental->body->error)) ) {
+                    $tweet['value'] = $sentimental->body->value;
+                    $tweet['emotion'] = self::emotions($sentimental->body->sent);
+                }
                 $emotionalTweets[] = $tweet;
             }
         }

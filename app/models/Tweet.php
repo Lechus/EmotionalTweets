@@ -17,8 +17,12 @@ class Tweet
                 $t['created_at'] = $tweet->created_at;
                 $t['lang'] = $tweet->lang;
                 $t['name'] = $tweet->user->name;
+                $t['profile_image_url'] = $tweet->user->profile_image_url;
                 $t['screen_name'] = $tweet->user->screen_name;
                 $t['text'] = $tweet->text;
+                $t['value'] = '';
+                $t['emotion'] = '';
+                
                 $tweets[] = $t;
             }
         }

@@ -12,3 +12,7 @@ Thumbs.db
 
 .vagrant
 /app/config/packages/thujohn/twitter/config.php
+app/config/packages/mashape/unirest-php/config.php
+public/testuj.php
+notatki.txt
+app/config/packages/mashape/unirest-php/config.php

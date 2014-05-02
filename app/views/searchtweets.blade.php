@@ -27,7 +27,7 @@
                 </div><!-- /.col-lg-6 -->
                 {{ Form::close() }}
             </div><!-- /.row -->
-            <p>Looking for searching by  <a href="{{URL::to('/screen_name')}}">screen_name?</a></p>
+            
             <br/>
 
             <div class="twitter">

@@ -33,19 +33,3 @@ Route::post('/', function()
     
     return View::make('searchtweets', array('tweets' => $tweets, 'q' => $search));
 });
-
-Route::get('/screen_name', function()
-{
-    
-    $search = ''; 
-    $tweets = null;
-    return View::make('tweets', array('tweets' => $tweets, 'screen_name' => $search));
-});
-
-Route::post('/screen_name', function()
-{
-    //Returns a collection of the most recent Tweets posted by the user indicated by the screen_name or user_id parameters.
-    $search = Input::get('screen_name'); 
-    $tweets = Twitter::getUserTimeline(array('screen_name' => $search, 'count' => 5));
-    return View::make('tweets', array('tweets' => $tweets, 'screen_name' => $search));
-});

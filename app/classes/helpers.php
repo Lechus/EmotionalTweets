@@ -61,7 +61,6 @@ class Helpers
                 
                 $sentimental = self::unirestSentimental($tweet['lang'], $tweet['text']);
 
-
                 if ( !(isset($sentimental->body->error) && is_object($sentimental->body->error)) ) {
                     $tweet['value'] = $sentimental->body->value;
                     $tweet['emotion'] = self::emotions($sentimental->body->sent);

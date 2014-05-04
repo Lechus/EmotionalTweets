@@ -54,7 +54,7 @@
                             </div>
                             @endif
 
-                            <span class="badge pull-right <?php echo $emotionClass; ?> " title="{{$tweet['value']}}">{{$tweet['emotion']}}</span>
+                            <span class="badge pull-right <?php echo $emotionClass; ?> ">{{$tweet['emotion']}}</span>
                             <strong>{{$tweet['name']}}</strong> ({{Twitter::linkify('@'.$tweet['screen_name'])}})
                             <small class="text-muted timeago" title="{{$tweet['created_at']}}"><i class="glyphicon glyphicon-time"></i>
                                 {{ date('H:i, M d', strtotime($tweet['created_at'])) }}

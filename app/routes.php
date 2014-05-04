@@ -22,14 +22,16 @@ Route::post('/', function()
 {
     $search = Input::get('q');
     
-    //Returns a collection of the most recent Tweets by search terms or hash tags
-    $response = Twitter::getSearch(array('q' => $search, 'count' => 2, 'result_type'=>'recent'));
-
-    //Get array with custom tweet attributes
-    $receivedTweets = Tweet::processResponse($response);
-       
-    //add sentimental status to tweets
-    $tweets = Helpers::addUnirestSentimentalStatus($receivedTweets);
+    $twitterGateway = App::make('Lpp\TwitterGateway\TwitterGatewayInterface');
+    
+    //Returns a array collection of the most recent Tweets by search terms or hash tags
+    $receivedTweets = $twitterGateway->getSearch(array('q' => $search, 'count' => 2, 'result_type'=>'recent'));
+      
+    //add sentimental status to tweets using Anylsis provider
+    $analyser = App::make('Lpp\Analysis\AnalyseInterface');
+    
+    $tweetModel = new \Lpp\Tweet();
+    $tweets = $tweetModel->analyse($receivedTweets, $analyser);
     
     return View::make('searchtweets', array('tweets' => $tweets, 'q' => $search));
 });

@@ -13,7 +13,7 @@ return array(
 	|
 	*/
 
-	'debug' => false,
+	'debug' => true,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -121,6 +121,8 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 
         'Thujohn\Twitter\TwitterServiceProvider',
+        'Lpp\Providers\AnalysisServiceProvider',
+        'Lpp\Providers\TwitterGatewayServiceProvider'
 	),
 
 	/*

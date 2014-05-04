@@ -1,14 +1,32 @@
-<?php
+<?php namespace Lpp\TwitterGateway;
 
-class Tweet
+
+class ThujohnTwitterGateway implements TwitterGatewayInterface
 {
+    /**
+     * {@inheritdoc}
+     */
+    public function getSearch($parameters = array())
+    {
+        $tweets = null;
 
+        if (!empty($parameters)) {
+            $response = \Twitter::getSearch($parameters);
+            if (!is_null($response)) {
+                $tweets = $this->processResponse($response);
+            }
+        }
+        
+        return $tweets;
+    }
+
+    
     /**
      * Grab interested data from Twitter API Search response
      * @param object $response
      * @return array $tweets
      */
-    public static function processResponse($response)
+    public function processResponse($response)
     {
         $tweets = array();
         if (!is_null($response)) {
@@ -20,8 +38,6 @@ class Tweet
                 $t['profile_image_url'] = $tweet->user->profile_image_url;
                 $t['screen_name'] = $tweet->user->screen_name;
                 $t['text'] = $tweet->text;
-                $t['value'] = '';
-                $t['emotion'] = '';
                 
                 $tweets[] = $t;
             }

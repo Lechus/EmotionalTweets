@@ -1,5 +1,6 @@
 <?php namespace Lpp;
 
+use Lpp\Analysis\AnalysisInterface;
 class Tweet
 {
     
@@ -8,7 +9,7 @@ class Tweet
      * @param array $tweets
      * @return array Tweets with emotions
      */
-    public function analyse($tweets, \Lpp\Analysis\AnalysisInterface $analyser)
+    public function analyse($tweets, AnalysisInterface $analyser)
     {
         $emotionalTweets = array();
 

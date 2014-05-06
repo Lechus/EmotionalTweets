@@ -1,0 +1,9 @@
+Problem with MCRYPT:
+Recently on Ubuntu when you run sudo apt-get install php5-mcrypt it doesn't actually install the extension into the mods-available. You'll need to symlink it.
+
+sudo ln -s /etc/php5/mods-available/mcrypt.ini /etc/php5/conf.d/mcrypt.ini 
+
+Then enable the extension and restart Apache.
+
+sudo php5enmod mcrypt
+sudo service apache2 restart

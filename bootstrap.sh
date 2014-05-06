@@ -43,7 +43,7 @@ service apache2 restart
 apt-get install -y libapache2-mod-php5
 # Add add-apt-repository binary
 apt-get install -y python-software-properties
-# Install PHP 5.4
+# Install PHP 5.4? It installs PHP 5.5 (2014-05)
 add-apt-repository ppa:ondrej/php5
 # Update
 apt-get update
@@ -70,7 +70,7 @@ export DEBIAN_FRONTEND=noninteractive
 # Install MySQL quietly
 apt-get -q -y install mysql-server-5.5
 
-apt-get -q -y install mysqltuner
+#apt-get -q -y install mysqltuner
 # Git
 # ---
 apt-get install git-core

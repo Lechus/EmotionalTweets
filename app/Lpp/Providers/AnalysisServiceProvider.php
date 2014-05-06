@@ -11,7 +11,7 @@ class AnalysisServiceProvider extends \Illuminate\Support\ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('Lpp\Analysis\AnalyseInterface', 'Lpp\Analysis\UnirestAnalysis');
+        $this->app->bind('Lpp\Analysis\AnalysisInterface', 'Lpp\Analysis\UnirestAnalysis');
     }
 
 }

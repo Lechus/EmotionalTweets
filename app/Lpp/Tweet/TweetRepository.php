@@ -1,15 +1,14 @@
-<?php namespace Lpp;
+<?php namespace Lpp\Tweet;
 
 use Lpp\Analysis\AnalysisInterface;
-class Tweet
+
+class TweetRepository implements TweetRepositoryInterface
 {
     
     /**
-     * Process array of Tweets and add emotion status to Tweet using AnalyseInterface
-     * @param array $tweets
-     * @return array Tweets with emotions
+     * {@inheritdoc}
      */
-    public function analyse($tweets, AnalysisInterface $analyser)
+    public function addAnalysis(array $tweets, AnalysisInterface $analyser)
     {
         $emotionalTweets = array();
 

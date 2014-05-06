@@ -29,8 +29,3 @@ Once you run the command
 
 ###Mashape 
 You need to modify `app/config/packages/mashape/unirest-php/config.php` with the correct API information.
-
-
-TODO:
-----
-Analyze user tweets and plot them on chart

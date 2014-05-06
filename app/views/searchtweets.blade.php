@@ -16,18 +16,27 @@
             <h1>Search for tweets:</h1>
 
             <div class="row">
-                {{ Form::open(array('url'=>'/', 'class'=>'form-search', 'role'=>'form', 'method' => 'post')) }}
                 <div class="col-md-6">
+                    @if( count($errors->all()) )
+                    <div class="alert alert-danger fade in">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
+                    {{ Form::open(array('url'=>URL::to('/search'), 'class'=>'form-search', 'role'=>'form', 'method' => 'post')) }}
                     <div class="input-group">
                         {{ Form::text('q', e($q), array('class'=>'form-control', 'placeholder'=>'Search term or hash tag.'))}}
                         <span class="input-group-btn">
                             {{ Form::submit('Search', array('class'=>'btn btn-default'))}}
                         </span>
                     </div><!-- /input-group -->
+                    {{ Form::close() }}
                 </div><!-- /.col-lg-6 -->
-                {{ Form::close() }}
             </div><!-- /.row -->
-            
+
             <br/>
 
             <div class="twitter">

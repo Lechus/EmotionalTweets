@@ -122,7 +122,8 @@ return array(
 
         'Thujohn\Twitter\TwitterServiceProvider',
         'Lpp\Providers\AnalysisServiceProvider',
-        'Lpp\Providers\TwitterGatewayServiceProvider'
+        'Lpp\Providers\TwitterGatewayServiceProvider',
+        'Lpp\Providers\TweetRepositoryServiceProvider'
 	),
 
 	/*

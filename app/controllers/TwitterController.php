@@ -2,7 +2,6 @@
 
 use Lpp\Tweet\TweetRepositoryInterface;
 use Lpp\TwitterGateway\TwitterGatewayInterface;
-use Lpp\Analysis\AnalysisInterface;
 use Lpp\Services\Validation\SearchTweetFormValidation;
 
 class TwitterController extends BaseController
@@ -17,57 +16,53 @@ class TwitterController extends BaseController
      * @var \Lpp\TwitterGateway\
      */
     protected $twitterGateway;
-    
-    /**
-     * @var \Lpp\Analysis
-     */
-    protected $analyser;
-    
+
     /**
      * @var \Lpp\Tweet
      */
     protected $tweetRepository;
 
     public function __construct(
-            SearchTweetFormValidation $validator,
-            TwitterGatewayInterface   $twitterGateway,
-            AnalysisInterface         $analyser,
-            TweetRepositoryInterface  $tweetRepository
+            SearchTweetFormValidation $validator, 
+            TwitterGatewayInterface $twitterGateway, 
+            TweetRepositoryInterface $tweetRepository
     )
     {
-        $this->validator        = $validator;
-        $this->twitterGateway   = $twitterGateway;
-        $this->analyser         = $analyser;
-        $this->tweetRepository  = $tweetRepository;
+        $this->validator = $validator;
+        $this->twitterGateway = $twitterGateway;
+        $this->tweetRepository = $tweetRepository;
     }
 
     /**
-    * Display a search form and listing of founded and anlysed tweets.
-    *
-    * @return Response
-    */
+     * Display a search form and listing of founded and anlysed tweets.
+     *
+     * @return Response
+     */
     public function searchTweets()
     {
         $tweets = null;
         $search = Input::get('q');
 
+        //dd(Input::all());
         if ($this->validator->with(Input::all())->passes()) {
 
             //Returns a array collection of the most recent Tweets by search terms or hash tags
-            $receivedTweets = $this->twitterGateway->getSearch(array('q' => $search, 'count' => 3, 'result_type' => 'recent'));
+            $receivedTweets = $this->twitterGateway->getSearch(array('q' => $search, 'count' => 5, 'result_type' => 'recent'));
 
-            //add sentimental status to tweets using Anylsis provider
-            $tweets = $this->tweetRepository->addAnalysis($receivedTweets, $this->analyser);
+            if (!empty($receivedTweets)) {
+                //add sentimental status to tweets using Anylsis provider
+                $tweets = $this->tweetRepository->addAnalysis($receivedTweets);
+            }
         }
-        
+
         return View::make('searchtweets', array('tweets' => $tweets, 'q' => $search))->withErrors($this->validator->errors());
     }
 
     /**
-    * Display a search form.
-    *
-    * @return Response
-    */
+     * Display a search form.
+     *
+     * @return Response
+     */
     public function showSearchForm()
     {
         //Returns a collection of the most recent Tweets by search terms or hash tags

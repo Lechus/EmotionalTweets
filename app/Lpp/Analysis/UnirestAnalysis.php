@@ -1,5 +1,8 @@
 <?php namespace Lpp\Analysis;
 
+use Unirest;
+use Config;
+
 class UnirestAnalysis implements AnalysisInterface
 {
 
@@ -11,9 +14,9 @@ class UnirestAnalysis implements AnalysisInterface
         $emotion = '';
 
         if (!is_null($text)) {
-            $response = \Unirest::post(
+            $response = Unirest::post(
                             "https://sentimentalsentimentanalysis.p.mashape.com/sentiment/current/classify_text/", array(
-                        "X-Mashape-Authorization" => \Config::get('packages/mashape/unirest-php/config.PRODUCTION_KEY')
+                        "X-Mashape-Authorization" => Config::get('packages/mashape/unirest-php/config.PRODUCTION_KEY')
                             ), array(
                         "lang" => $lang,
                         "text" => urlencode($text),

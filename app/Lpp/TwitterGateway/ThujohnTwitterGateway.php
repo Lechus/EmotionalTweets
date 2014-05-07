@@ -1,5 +1,6 @@
 <?php namespace Lpp\TwitterGateway;
 
+use Twitter;
 
 class ThujohnTwitterGateway implements TwitterGatewayInterface
 {
@@ -11,7 +12,7 @@ class ThujohnTwitterGateway implements TwitterGatewayInterface
         $tweets = null;
 
         if (!empty($parameters)) {
-            $response = \Twitter::getSearch($parameters);
+            $response = Twitter::getSearch($parameters);
             if (!is_null($response)) {
                 $tweets = $this->processResponse($response);
             }
@@ -26,7 +27,7 @@ class ThujohnTwitterGateway implements TwitterGatewayInterface
      * @param object $response
      * @return array $tweets
      */
-    public function processResponse($response)
+    protected function processResponse($response)
     {
         $tweets = array();
         if (!is_null($response)) {

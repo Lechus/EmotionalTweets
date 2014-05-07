@@ -1,7 +1,5 @@
 <?php namespace Lpp\Tweet;
 
-use Lpp\Analysis\AnalysisInterface;
-
 interface TweetRepositoryInterface
 {
     /**
@@ -9,6 +7,6 @@ interface TweetRepositoryInterface
      * @param array $tweets
      * @return array Tweets with emotions
      */
-    public function addAnalysis(array $tweets, AnalysisInterface $analyser);
+    public function addAnalysis(array $tweets);
     
 }

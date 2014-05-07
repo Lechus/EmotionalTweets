@@ -4,24 +4,33 @@ use Lpp\Analysis\AnalysisInterface;
 
 class TweetRepository implements TweetRepositoryInterface
 {
-    
+    /**
+     * Analysis interface
+     *
+     * @var Lpp\Analysis\AnalysisInterface
+     */
+    protected $analyser;
+
+    public function __construct(AnalysisInterface $analyser)
+    {
+        $this->analyser = $analyser;
+    }
+
     /**
      * {@inheritdoc}
      */
-    public function addAnalysis(array $tweets, AnalysisInterface $analyser)
+    public function addAnalysis(array $tweets)
     {
         $emotionalTweets = array();
 
         if (!is_null($tweets)) {
             foreach ($tweets as $tweet) {
-
-                $tweet['emotion'] = $analyser->analyse($tweet['text'], $tweet['lang']);
-
+                $tweet['emotion'] = $this->analyser->analyse($tweet['text'], $tweet['lang']);
                 $emotionalTweets[] = $tweet;
             }
         }
 
         return $emotionalTweets;
     }
-    
+
 }

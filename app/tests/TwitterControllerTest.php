@@ -66,7 +66,55 @@ class TwitterControllerTest extends TestCase
         $this->assertGreaterThan(0, $crawler->filter('div.alert-danger')->count());
     }
 
-   
+    /**
+     * @covers TwitterController::searchTweets
+     */
+    public function testSearchTweetsWithInput()
+    {
+        //Arrange
+        $search = '#laravel';
+        $validatorMock = $this->getValidatorMock();
+        $this->app->instance("Lpp\Services\Validation\SearchTweetFormValidation", $validatorMock);
+        $validatorMock
+                ->shouldReceive("with")
+                ->once()
+                ->with(array('q'=>$search))
+                ->andReturn(Mockery::self());
+        
+        $validatorMock
+                ->shouldReceive("passes")
+                ->once()
+                ->andReturn(false);
+        
+        $twitterMock = $this->getTwitterGatewayMockPartial();
+        $twitterMock
+                ->shouldReceive("getSearch")
+                ->once()
+                ->with(array('q' => $search, 'count' => 5, 'result_type' => 'recent'))
+                ->andReturn('Happy');
+
+        $tweetRepository = $this->getRepositoryMock();
+        $tweetRepository
+                ->shouldReceive("addAnalysis")
+                ->once()
+                ->with(array('lang' => 'en', 'text'=>'Looked into #laravel as a starting point for a web app...'
+                        . '  28 Meg seems a bit much to start off with..'))
+                ->andReturn(array('lang' => 'en', 'text'=>'Looked into #laravel as a starting point for a web app...'
+                        . '  28 Meg seems a bit much to start off with..', 'emotion'=>'Happy'));
+
+        //Act
+        
+        $crawler = $this->client->request('POST', '/search', array('q' => '@re_systems'));
+
+
+        //Assert
+        $this->assertTrue($this->client->getResponse()->isOk());
+
+        // Assert that there is no one div tag
+        // with the class "alert-danger"
+        $this->assertEquals(0, $crawler->filter('div.alert-danger')->count());
+    }
+
     
     /**
      * Too long string for search query (longer than 1000 characters)

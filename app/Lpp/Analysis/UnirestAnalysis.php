@@ -5,6 +5,12 @@ use Config;
 
 class UnirestAnalysis implements AnalysisInterface
 {
+    private $unirest;
+    
+    public function __construct(Unirest $unirest)
+    {
+        $this->unirest = $unirest;
+    }
 
     /**
      * {@inheritdoc}
@@ -14,7 +20,7 @@ class UnirestAnalysis implements AnalysisInterface
         $emotion = '';
 
         if (!is_null($text)) {
-            $response = Unirest::post(
+            $response = $this->unirest->post(
                             "https://sentimentalsentimentanalysis.p.mashape.com/sentiment/current/classify_text/", array(
                         "X-Mashape-Authorization" => Config::get('packages/mashape/unirest-php/config.PRODUCTION_KEY')
                             ), array(
@@ -39,7 +45,6 @@ class UnirestAnalysis implements AnalysisInterface
     {
         if (!(isset($response->body->error) && is_object($response->body->error))) {
 
-            //dd($response->body->sent);
             return $this->emotions($response->body->sent);
         }
         return 'unknown';

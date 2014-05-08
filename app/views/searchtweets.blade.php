@@ -40,10 +40,12 @@
             <br/>
 
             <div class="twitter">
-                @if(!empty($tweets))       
+                @if(is_array($tweets))       
 
                 @foreach($tweets as $tweet)
+                
                 <?php
+                
                 $emotionClass = '';
                 switch ($tweet['emotion']):
                     case "Sad": $emotionClass = 'alert-danger';

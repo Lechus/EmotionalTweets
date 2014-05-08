@@ -9,7 +9,7 @@ class TweetRepository implements TweetRepositoryInterface
      *
      * @var Lpp\Analysis\AnalysisInterface
      */
-    protected $analyser;
+    private $analyser;
 
     public function __construct(AnalysisInterface $analyser)
     {

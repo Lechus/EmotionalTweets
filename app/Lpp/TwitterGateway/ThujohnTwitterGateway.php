@@ -4,6 +4,7 @@ use Twitter;
 
 class ThujohnTwitterGateway implements TwitterGatewayInterface
 {
+
     /**
      * {@inheritdoc}
      */
@@ -11,17 +12,16 @@ class ThujohnTwitterGateway implements TwitterGatewayInterface
     {
         $tweets = null;
 
-        if (!empty($parameters)) {
+        if ($this->isSearchKeyAndNotEmpty($parameters)) {
             $response = Twitter::getSearch($parameters);
             if (!is_null($response)) {
                 $tweets = $this->processResponse($response);
             }
         }
-        
+
         return $tweets;
     }
 
-    
     /**
      * Grab interested data from Twitter API Search response
      * @param object $response
@@ -39,11 +39,16 @@ class ThujohnTwitterGateway implements TwitterGatewayInterface
                 $t['profile_image_url'] = $tweet->user->profile_image_url;
                 $t['screen_name'] = $tweet->user->screen_name;
                 $t['text'] = $tweet->text;
-                
+
                 $tweets[] = $t;
             }
         }
         return $tweets;
+    }
+
+    protected function isSearchKeyAndNotEmpty($parameters = array())
+    {
+        return (!empty($parameters) && isset($parameters['q']) && mb_strlen($parameters['q'])>0);
     }
 
 }

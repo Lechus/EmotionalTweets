@@ -5,8 +5,8 @@ class TwitterControllerTest extends TestCase
 
     public function testConstructor()
     {
-        $validatorMock       = $this->getValidatorMockPartial();
-        $twitterGatewayMock  = $this->getTwitterGatewayMockPartial();
+        $validatorMock = $this->getValidatorMockPartial();
+        $twitterGatewayMock = $this->getTwitterGatewayMockPartial();
         $tweetRepositoryMock = $this->getRepositoryMockPartial();
 
         $twitterController = new TwitterController(
@@ -14,7 +14,6 @@ class TwitterControllerTest extends TestCase
         );
     }
 
-    
     /**
      * @covers TwitterController::showSearchForm
      */
@@ -31,7 +30,6 @@ class TwitterControllerTest extends TestCase
      * Validation input required
      * @covers TwitterController::searchTweets
      */
- 
     public function testSearchTweetsWithoutInput()
     {
         //Arrange
@@ -49,7 +47,6 @@ class TwitterControllerTest extends TestCase
      * Validation input max 1000 chars length
      * @covers TwitterController::searchTweets
      */
-    
     public function testSearchTweetsWithBadInput()
     {
         //Arrange
@@ -72,40 +69,42 @@ class TwitterControllerTest extends TestCase
     public function testSearchTweetsWithInput()
     {
         //Arrange
-        $search = '#laravel';
+        $search = "@re_systems";
         $validatorMock = $this->getValidatorMock();
-        $this->app->instance("Lpp\Services\Validation\SearchTweetFormValidation", $validatorMock);
         $validatorMock
                 ->shouldReceive("with")
                 ->once()
-                ->with(array('q'=>$search))
                 ->andReturn(Mockery::self());
-        
+
         $validatorMock
                 ->shouldReceive("passes")
                 ->once()
-                ->andReturn(false);
-        
-        $twitterMock = $this->getTwitterGatewayMockPartial();
+                ->andReturn(true);
+
+        $validatorMock
+                ->shouldReceive("errors")
+                ->once()
+                ->andReturn([]);
+        $this->app->instance("Lpp\Services\Validation\SearchTweetFormValidation", $validatorMock);
+
+        $tweetsReceivedFromTwitter = $this->getTweetsReceivedFromTwitter();
+        $twitterMock = $this->getTwitterGatewayMock();
         $twitterMock
                 ->shouldReceive("getSearch")
                 ->once()
-                ->with(array('q' => $search, 'count' => 5, 'result_type' => 'recent'))
-                ->andReturn('Happy');
+                ->andReturn($tweetsReceivedFromTwitter);
+        $this->app->instance("Lpp\TwitterGateway\TwitterGatewayInterface", $twitterMock);
 
+        $tweetsWithEmotion = $this->getTweetsWithEmotion();
         $tweetRepository = $this->getRepositoryMock();
         $tweetRepository
                 ->shouldReceive("addAnalysis")
                 ->once()
-                ->with(array('lang' => 'en', 'text'=>'Looked into #laravel as a starting point for a web app...'
-                        . '  28 Meg seems a bit much to start off with..'))
-                ->andReturn(array('lang' => 'en', 'text'=>'Looked into #laravel as a starting point for a web app...'
-                        . '  28 Meg seems a bit much to start off with..', 'emotion'=>'Happy'));
+                ->andReturn($tweetsWithEmotion);
+        $this->app->instance("Lpp\Tweet\TweetRepositoryInterface", $tweetRepository);
 
         //Act
-        
         $crawler = $this->client->request('POST', '/search', array('q' => '@re_systems'));
-
 
         //Assert
         $this->assertTrue($this->client->getResponse()->isOk());
@@ -115,7 +114,31 @@ class TwitterControllerTest extends TestCase
         $this->assertEquals(0, $crawler->filter('div.alert-danger')->count());
     }
 
-    
+    protected function getTweetsReceivedFromTwitter()
+    {
+        return array(0 => array(
+                'created_at' => 'Thu May 08 01:01:19 +0000 2014',
+                'name' => 'laravel',
+                'screen_name' => 'Laravel',
+                'text' => 'Looked into #laravel as a starting point for a web app... 28 Meg seems a bit much to start off with..',
+                'lang' => 'en'
+            )
+        );
+    }
+
+    protected function getTweetsWithEmotion()
+    {
+        return array(0 => array(
+                'created_at' => 'Thu May 08 01:01:19 +0000 2014',
+                'name' => 'laravel',
+                'screen_name' => 'Laravel',
+                'text' => 'Looked into #laravel as a starting point for a web app... 28 Meg seems a bit much to start off with..',
+                'lang' => 'en',
+                'emotion' => 'Happy'
+            )
+        );
+    }
+
     /**
      * Too long string for search query (longer than 1000 characters)
      * @return string
@@ -139,7 +162,7 @@ class TwitterControllerTest extends TestCase
                 . "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do"
                 . " eiusmod tempor incididunt ut labore et dolore magna aliqua.";
     }
-    
+
     protected function getRepositoryMock()
     {
         return Mockery::mock("Lpp\Tweet\TweetRepositoryInterface");
@@ -149,21 +172,20 @@ class TwitterControllerTest extends TestCase
     protected function getRepositoryMockPartial()
     {
         return Mockery::mock("Lpp\Tweet\TweetRepositoryInterface")
-                ->makePartial();
-    }
-    
-    protected function getValidatorMock()
-    {
-        
-        return Mockery::mock("Lpp\Services\Validation\SearchTweetFormValidation");
-    }
- 
-    protected function getValidatorMockPartial()
-    {
-         return Mockery::mock("Lpp\Services\Validation\SearchTweetFormValidation")
                         ->makePartial();
     }
-    
+
+    protected function getValidatorMock()
+    {
+
+        return Mockery::mock("Lpp\Services\Validation\SearchTweetFormValidation");
+    }
+
+    protected function getValidatorMockPartial()
+    {
+        return Mockery::mock("Lpp\Services\Validation\SearchTweetFormValidation")
+                        ->makePartial();
+    }
 
     protected function getTwitterGatewayMock()
     {
@@ -175,6 +197,5 @@ class TwitterControllerTest extends TestCase
         return Mockery::mock("Lpp\TwitterGateway\TwitterGatewayInterface")
                         ->makePartial();
     }
-
 
 }

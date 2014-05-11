@@ -11,6 +11,7 @@
 |
 */
 
-Route::get('/', 'TwitterController@showSearchForm');
+Route::get('search', 'TwitterController@showSearchForm');
 Route::post('search', 'TwitterController@searchTweets');
 
+Route::get('/', 'HomeController@showWelcome');

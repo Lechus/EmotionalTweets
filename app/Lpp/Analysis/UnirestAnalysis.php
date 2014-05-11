@@ -6,7 +6,7 @@ use Config;
 class UnirestAnalysis implements AnalysisInterface
 {
     private $unirest;
-    
+
     public function __construct(Unirest $unirest)
     {
         $this->unirest = $unirest;
@@ -21,14 +21,14 @@ class UnirestAnalysis implements AnalysisInterface
 
         if (!is_null($text)) {
             $response = $this->unirest->post(
-                            "https://sentimentalsentimentanalysis.p.mashape.com/sentiment/current/classify_text/", array(
-                        "X-Mashape-Authorization" => Config::get('packages/mashape/unirest-php/config.PRODUCTION_KEY')
-                            ), array(
-                        "lang" => $lang,
-                        "text" => urlencode($text),
-                        "exclude" => "",
-                        "detectlang" => "0"
-                            )
+                    "https://sentimentalsentimentanalysis.p.mashape.com/sentiment/current/classify_text/", array(
+                "X-Mashape-Authorization" => Config::get('packages/mashape/unirest-php/config.PRODUCTION_KEY')
+                    ), array(
+                "lang" => $lang,
+                "text" => urlencode($text),
+                "exclude" => "",
+                "detectlang" => "0"
+                    )
             );
             $emotion = $this->processResponse($response);
         }
@@ -37,14 +37,13 @@ class UnirestAnalysis implements AnalysisInterface
     }
 
     /**
-     * 
+     * Process response or return 'unknown' if error
      * @param object(Unirest\HttpResponse) $response
      * @return string Emotion
      */
     protected function processResponse($response)
     {
-        if (!(isset($response->body->error) && is_object($response->body->error))) {
-
+        if (empty($response->body->error)) {
             return $this->emotions($response->body->sent);
         }
         return 'unknown';
@@ -57,15 +56,18 @@ class UnirestAnalysis implements AnalysisInterface
      */
     protected function emotions($sent)
     {
-        $emotion = 'unknown';
-        switch ($sent):
-            case -1: $emotion = 'Sad';
+        switch ($sent) {
+            case -1:
+                $emotion = 'Sad';
                 break;
-            case 0: $emotion = 'Indifferent';
+            case 0:
+                $emotion = 'Indifferent';
                 break;
-            case 1: $emotion = 'Happy';
+            case 1:
+                $emotion = 'Happy';
                 break;
-        endswitch;
+            default: $emotion = 'unknown';
+        }
 
         return $emotion;
     }

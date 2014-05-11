@@ -29,3 +29,17 @@ Once you run the command
 
 ###Mashape 
 You need to modify `app/config/packages/mashape/unirest-php/config.php` with the correct API information.
+
+[URLs]
+----
+https://dev.twitter.com/docs/api/1.1/get/search/tweets
+
+http://laravel.com
+
+http://getbootstrap.com
+
+https://www.mashape.com/sentimental/sentiment-analysis-for-twitter-and-facebook
+
+http://www.vagrantup.com
+
+https://getcomposer.org

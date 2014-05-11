@@ -19,13 +19,8 @@ class UnirestAnalysisTest extends TestCase
      */
     public function testAnalyse()
     {
-        
-        $unirestMock = Mockery::mock('Unirest');
-        $unirestMock
-                ->shouldReceive('post')
-                ->once()
-                ->andReturn($this->getMashapeUnirestResponse());
-        
+        //Arrange
+        $unirestMock = $this->getUnirestMock();
         $unirestAnalyser = new UnirestAnalysis($unirestMock);
         
         //Act
@@ -50,6 +45,20 @@ class UnirestAnalysisTest extends TestCase
         $response->body = $body;
     
         return $response;   
-    }  
-    
+    }
+
+    /**
+     * Mocking Mashape/Unirest from package
+     * @return Mockery Mock
+     */
+    protected function getUnirestMock()
+    {
+       $unirestMock = Mockery::mock('Unirest');
+       $unirestMock
+                ->shouldReceive('post')
+                ->once()
+                ->andReturn($this->getMashapeUnirestResponse());
+       return $unirestMock;
+    }
+
 }

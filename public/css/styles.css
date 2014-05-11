@@ -14,3 +14,75 @@ and open the template in the editor.
 .twitter-img{
     padding-right: 10px;
 }
+
+/*body*/.dark-page {
+    background: #000 url('/img/background.jpg') no-repeat 0 0;
+    color:white;
+}
+.bsa-logo {
+    margin:30px 0 40px;
+}
+
+.marketing {
+    padding-left: 0;
+    padding-right: 0;
+    margin: 40px 0;
+}
+.marketing .img-face {
+    margin: 20px 0 70px;
+}
+.marketing .col-lg-4 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+.marketing .col-lg-4 p{
+    text-align: left;
+}
+.marketing h2 {
+    font-weight: normal;
+}
+.marketing .col-lg-4 p {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.marketing-intro {
+    padding: 50px 0 10px;
+    text-align: center;
+}
+
+/*p*/.call-to-action {
+    font-size: 60px;
+    text-align: center;
+    text-shadow: 0 0 0.1em #999;
+}
+
+#btn-go {
+    display: block;
+	width: 233px;
+	height: 93px;
+	background: url('/img/conversion_buttons.png') no-repeat 0 0;
+	text-indent: -99999px;
+        margin: 0 auto;
+}
+#btn-go:hover {
+	background-position: bottom;
+}
+
+footer {
+    margin-top:100px;
+}
+
+.tweets-panel {
+    background-color: white;
+    color:black;
+    border-radius: 5px 0 0 5px;
+    min-height: 400px;
+}
+
+.score-panel {
+    min-height: 400px;
+    background-color: #eee;
+    color:black;
+    border-radius: 0 5px 5px 0;
+}

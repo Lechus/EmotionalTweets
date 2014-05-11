@@ -15,7 +15,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-4 col-sm-offset-4">
-                    <h1><img src="/img/logo.png" class="img-responsive bsa-logo" /></h1>
+                    <h1><a href="{{URL::to('/')}}"><img src="/img/logo.png" class="img-responsive bsa-logo" /></a></h1>
                 </div>  
             </div>  
             <div class="row">

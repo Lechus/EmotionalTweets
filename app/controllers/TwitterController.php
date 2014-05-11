@@ -43,13 +43,12 @@ class TwitterController extends BaseController
         $tweets = null;
         $search = Input::get('q');
 
-        //dd(Input::all());
         if ($this->validator->with(Input::all())->passes()) {
 
             //Returns a array collection of the most recent Tweets by search terms or hash tags
-            $receivedTweets = $this->twitterGateway->getSearch(array('q' => $search, 'count' => 1, 'result_type' => 'recent'));
+            $receivedTweets = $this->twitterGateway->getSearch(array('q' => $search, 'count' => 3, 'result_type' => 'recent'));
 
-            if (!empty($receivedTweets)) {
+            if (!empty($receivedTweets)) {                
                 //add sentimental status to tweets using Anylsis provider
                 $tweets = $this->tweetRepository->addAnalysis($receivedTweets);
             }

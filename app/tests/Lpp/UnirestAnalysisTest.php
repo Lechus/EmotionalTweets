@@ -21,7 +21,7 @@ class UnirestAnalysisTest extends TestCase
     {
         
         $unirestMock = Mockery::mock('Unirest');
-        $unirestResponse = $unirestMock
+        $unirestMock
                 ->shouldReceive('post')
                 ->once()
                 ->andReturn($this->getMashapeUnirestResponse());

@@ -1,19 +1,27 @@
 <?php namespace Lpp\TwitterGateway;
 
-use Twitter;
+use \Thujohn\Twitter\Twitter;
 
 class ThujohnTwitterGateway implements TwitterGatewayInterface
 {
 
+    private $thujohnTwitter;
+    
+    public function __construct(Twitter $thujohnTwitter)
+    {
+        $this->thujohnTwitter = $thujohnTwitter;
+    }
+    
     /**
      * {@inheritdoc}
      */
     public function getSearch($parameters = array())
     {
-        $tweets = null;
-
+        $tweets  = null;
+        
         if ($this->isSearchKeyAndNotEmpty($parameters)) {
-            $response = Twitter::getSearch($parameters);
+            $response = $this->thujohnTwitter->getSearch($parameters);
+           // dd($response);
             if (!is_null($response)) {
                 $tweets = $this->processResponse($response);
             }

@@ -10,6 +10,7 @@ and open the template in the editor.
 
 .twitter, .twitter-block {
     overflow: hidden;
+    margin-top:15px;
 }
 .twitter-img{
     padding-right: 10px;
@@ -77,12 +78,21 @@ footer {
     background-color: white;
     color:black;
     border-radius: 5px 0 0 5px;
-    min-height: 400px;
+    min-height: 475px;
 }
 
 .score-panel {
-    min-height: 400px;
+    padding-top: 10px;
+    min-height: 475px;
     background-color: #eee;
     color:black;
     border-radius: 0 5px 5px 0;
+}
+.score-panel p{
+    text-align: center;
+}
+.score-panel hr {
+    border-color: black;
+    margin: 5px 15px;
+
 }

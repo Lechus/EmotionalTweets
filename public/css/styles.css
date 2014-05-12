@@ -78,15 +78,20 @@ footer {
     background-color: white;
     color:black;
     border-radius: 5px 0 0 5px;
-    min-height: 475px;
+    min-height: 520px;
+    padding: 30px 30px 10px;
+}
+.tweets-panel h1 {
+    margin-top: 0;
 }
 
 .score-panel {
     padding-top: 10px;
-    min-height: 475px;
+    min-height: 520px;
     background-color: #eee;
     color:black;
     border-radius: 0 5px 5px 0;
+
 }
 .score-panel p{
     text-align: center;

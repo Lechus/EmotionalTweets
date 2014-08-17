@@ -44,7 +44,7 @@ abstract class AbstractLaravelValidator implements ValidableInterface
     /**
      * Set data to validate
      *
-     * @return \Impl\Service\Validation\AbstractLaravelValidator
+     * @return \Lpp\Services\Validation\AbstractLaravelValidator
      */
     public function with(array $data)
     {

@@ -7,7 +7,7 @@ composer.phar
 Thumbs.db
 
 /nbproject
-
+.idea/
 
 .vagrant
 app/config/packages/mashape/unirest-php/config.php

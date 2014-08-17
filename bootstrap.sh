@@ -92,4 +92,4 @@ echo "CREATE USER 'vagrant'@'localhost' IDENTIFIED BY 'vagrant'" | mysql
 echo "GRANT ALL PRIVILEGES ON tweets.* TO 'vagrant'@'localhost' IDENTIFIED BY 'vagrant'" | mysql
 echo "GRANT ALL PRIVILEGES ON tweets.* TO 'vagrant'@'127.0.0.1' IDENTIFIED BY 'vagrant'" | mysql
 # Set up the database
-php artisan migrate
+#php artisan migrate

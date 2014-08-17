@@ -104,7 +104,7 @@ class TwitterControllerTest extends TestCase
         $this->app->instance("Lpp\Tweet\TweetRepositoryInterface", $tweetRepository);
 
         //Act
-        $crawler = $this->client->request('POST', '/search', array('q' => '@re_systems'));
+        $crawler = $this->client->request('POST', '/search', array('q' => $search));
 
         //Assert
         $this->assertTrue($this->client->getResponse()->isOk());

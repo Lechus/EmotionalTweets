@@ -20,6 +20,11 @@ Vagrant.configure("2") do |config|
   # accessing "localhost:8080" will access port 80 on the guest machine.
   config.vm.network :forwarded_port, guest: 80, host: 8080
 
+
+
+config.vm.synced_folder ".", "/var/www", id: "vagrant-www", :owner => "www-data", :group => "www-data"
+
+
 #Forwarder port for MySQL
   config.vm.network :forwarded_port, guest: 3333, host: 3306
 

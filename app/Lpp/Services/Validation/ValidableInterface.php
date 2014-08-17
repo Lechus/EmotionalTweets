@@ -11,7 +11,7 @@ interface ValidableInterface
      * Add data to validation against
      *
      * @param array
-     * @return \Lpp\Service\Validation\ValidableInterface $this
+     * @return \Lpp\Services\Validation\ValidableInterface $this
      */
     public function with(array $input);
 

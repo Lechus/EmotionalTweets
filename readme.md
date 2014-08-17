@@ -27,7 +27,7 @@ Once you run the command
 `app/config/packages/thujohn/twitter/config.php` with the correct API information.
 
 
-###Mashape 
+###Mashape
 You need to modify `app/config/packages/mashape/unirest-php/config.php` with the correct API information.
 
 [URLs]
@@ -43,3 +43,5 @@ https://www.mashape.com/sentimental/sentiment-analysis-for-twitter-and-facebook
 http://www.vagrantup.com
 
 https://getcomposer.org
+
+You just need to run composer install to install the Laravel framework inside the project directory before you are able to run this code.

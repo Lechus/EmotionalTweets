@@ -7,7 +7,7 @@ class TweetRepository implements TweetRepositoryInterface
     /**
      * Analysis interface
      *
-     * @var Lpp\Analysis\AnalysisInterface
+     * @var \Lpp\Analysis\AnalysisInterface
      */
     private $analyser;
 
